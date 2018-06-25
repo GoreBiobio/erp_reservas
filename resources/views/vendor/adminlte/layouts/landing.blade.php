@@ -90,9 +90,8 @@
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-20">
                                 <a href="Publico/Hardwares"><img src="img/pc.png" alt=""></a>
-                                <center><h2>E. Informático</h2></center>
+                                <center><h2>Equipamiento Informático</h2></center>
                             </div>
-
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
                                 <div class="gdlr-core-pbf-column-content-margin gdlr-core-js "
@@ -104,7 +103,7 @@
                                                 <a class="gdlr-core-button  gdlr-core-button-gradient gdlr-core-button-no-border"
                                                    href="/login"
                                                    target="_blank" id="gdlr-core-button-id-86233"><span
-                                                        class="gdlr-core-content">Administración!</span></a></div>
+                                                        class="gdlr-core-content">¡ Administrar Reservas !</span></a></div>
                                         </div>
                                     </div>
                                 </div>
@@ -117,7 +116,7 @@
         <footer>
             <div class="onepagepro-copyright-wrapper">
                 <div class="onepagepro-copyright-container onepagepro-container">
-                    <div class="onepagepro-copyright-text onepagepro-item-pdlr">SISTEMA DE RESERVA - GORE BIOBÍO
+                    <div class="onepagepro-copyright-text onepagepro-item-pdlr">&copy 2018 - SISTEMA DE RESERVAS / GORE BIOBÍO
                     </div>
                 </div>
             </div>

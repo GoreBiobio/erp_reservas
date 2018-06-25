@@ -9,7 +9,7 @@
     / Gestión
 @endsection
 @section('main-content')
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
                 <i class="fa fa-bug"></i>
