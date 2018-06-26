@@ -25,7 +25,8 @@ class Vehiculos extends Controller
             $lista_reservas_activas = DB::table('reservas')
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
-                    ['tipoReserva', '=', 'Vehiculos']
+                    ['tipoReserva', '=', 'Vehiculos'],
+                    ['vehiculos.grupoAccesoVehiculo','=',auth::user()->sublevel]
                 ])
                 ->join('vehiculos', 'vehiculos.idVehiculo', 'reservas.vehiculos_idVehiculo')
                 ->join('users', 'users.id', 'reservas.users_id')

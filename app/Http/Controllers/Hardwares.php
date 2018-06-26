@@ -26,7 +26,8 @@ class Hardwares extends Controller
             $lista_reservas_activas = DB::table('reservas')
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
-                    ['tipoReserva', '=', 'Hardwares']
+                    ['tipoReserva', '=', 'Hardwares'],
+                    ['hardwares.grupoAccesoHardware','=',auth::user()->sublevel]
                 ])
                 ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')
                 ->join('users', 'users.id', 'reservas.users_id')

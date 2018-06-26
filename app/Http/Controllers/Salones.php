@@ -28,7 +28,8 @@ class Salones extends Controller
             ->join('users', 'users.id', 'reservas.users_id')
             ->where([
                 ['estadoReserva', '=', 'Activa'],
-                ['tipoReserva', '=', 'Salones']
+                ['tipoReserva', '=', 'Salones'],
+                ['salones.grupoAccesoSalon','=',auth::user()->sublevel]
             ])
             ->get();
 
