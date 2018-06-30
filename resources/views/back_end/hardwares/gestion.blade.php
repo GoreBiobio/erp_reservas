@@ -9,6 +9,7 @@
     / Gestión
 @endsection
 @section('main-content')
+
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
@@ -107,7 +108,8 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Fecha Reserva</th>
+                        <th>Fecha Inicio Reserva</th>
+                        <th>Fecha Fin Reserva</th>
                         <th>Hardware</th>
                         <th>Funcionario Reserva</th>
                         <th>Observaciones Reserva</th>
@@ -119,8 +121,11 @@
                     <tbody>
                     @foreach($lista_reservas as $lista_reservas)
                         <tr>
-                            <td><center>{{ $lista_reservas -> idReserva }}</center></td>
-                            <td>{{ $lista_reservas -> fecIniReserva  }} al {{ $lista_reservas -> fecFinReserva }}</td>
+                            <td>
+                                <center>{{ $lista_reservas -> idReserva }}</center>
+                            </td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecIniReserva))  }}</td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecFinReserva)) }}</td>
                             <td>
                                 <button type="button" class="btn btn-block btn-xs"
                                         style="color: #ffffff; background-color: {{ $lista_reservas->colorHardware }}">
@@ -140,17 +145,15 @@
                                     </button>
                                 </center>
                             </td>
-                            <td><center>{{ $lista_reservas -> name }}</center></td>
+                            <td>
+                                <center>{{ $lista_reservas -> name }}</center>
+                            </td>
                             <td>
                                 <center>
-                                    <form action="/Reservas/AnularReservaHardware" method="POST">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="hidden" name="idReserva"
-                                               value="{{ $lista_reservas -> idReserva }}">
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-close"></i>
-                                            ANULAR RESERVA
-                                        </button>
-                                    </form>
+                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
+                                            data-target="#ModalAnular"><i
+                                            class="fa fa-calendar-minus-o"></i> ANULAR RESERVA
+                                    </button>
                                 </center>
                             </td>
                         </tr>
@@ -160,6 +163,35 @@
             </div>
         </div>
         <!-- /.box-body -->
+    </div>
+
+    <div id="ModalAnular" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Solicitar Anulación de Reserva</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/Reservas/AnularReservaHardware" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="idReserva"
+                               value="{{ $lista_reservas -> idReserva }}">
+                        <center>
+                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
+                                SI, ANULAR RESERVA
+                            </button>
+                        </center>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
 @endsection

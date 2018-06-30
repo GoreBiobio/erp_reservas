@@ -14,29 +14,30 @@ class Salones extends Controller
 
     public function gestion()
     {
-        if (Auth::user()->level == 'M12' || Auth::user()->level == 'MENU1' ) {
+        if (Auth::user()->level == 'M12' || Auth::user()->level == 'MENU1') {
 
-        $lista_salones = DB::table('salones')
-            ->where([
-                ['estadoSalon', '=', 'Activo'],
-                ['grupoAccesoSalon','=',auth::user()->sublevel]
-            ])
-            ->get();
+            $lista_salones = DB::table('salones')
+                ->where([
+                    ['estadoSalon', '=', 'Activo'],
+                    ['grupoAccesoSalon', '=', auth::user()->sublevel]
+                ])
+                ->get();
 
-        $lista_reservas_activas = DB::table('reservas')
-            ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
-            ->join('users', 'users.id', 'reservas.users_id')
-            ->where([
-                ['estadoReserva', '=', 'Activa'],
-                ['tipoReserva', '=', 'Salones'],
-                ['salones.grupoAccesoSalon','=',auth::user()->sublevel]
-            ])
-            ->get();
+            $lista_reservas_activas = DB::table('reservas')
+                ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
+                ->join('users', 'users.id', 'reservas.users_id')
+                ->where([
+                    ['estadoReserva', '=', 'Activa'],
+                    ['tipoReserva', '=', 'Salones'],
+                    ['fecIniReserva', '>=', NOW()],
+                    ['salones.grupoAccesoSalon', '=', auth::user()->sublevel]
+                ])
+                ->get();
 
-        return view('back_end.salones.gestion', [
-            'lista_salones' => $lista_salones,
-            'lista_reservas' => $lista_reservas_activas
-        ]);
+            return view('back_end.salones.gestion', [
+                'lista_salones' => $lista_salones,
+                'lista_reservas' => $lista_reservas_activas
+            ]);
 
         } else {
 
@@ -104,29 +105,29 @@ class Salones extends Controller
 
         $events = [];
         $data = $reservas = DB::table('reservas')
-            ->where('estadoReserva','=','Activa')
-            ->join('salones','salones.idSalon', 'reservas.salones_idSalon')
+            ->where('estadoReserva', '=', 'Activa')
+            ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
             ->get();
 
         $data2 = $reservas = DB::table('salones')
-            ->where('estadoSalon','Activo')
+            ->where('estadoSalon', 'Activo')
             ->get();
 
-            foreach ($data as $key => $value) {
-                $events[] = Calendar::event(
-                    $value->nombreReserva.' / Reservado por: '. $value->usuarioReserva,
-                    false,
-                    new \DateTime($value->fecIniReserva),
-                    new \DateTime($value->fecFinReserva),
-                    null,
-                    [
-                        'color' => $value->colorSalon,
-                    ]
-                );
-            }
+        foreach ($data as $key => $value) {
+            $events[] = Calendar::event(
+                $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                false,
+                new \DateTime($value->fecIniReserva),
+                new \DateTime($value->fecFinReserva),
+                null,
+                [
+                    'color' => $value->colorSalon,
+                ]
+            );
+        }
 
         $calendar = Calendar::addEvents($events);
-        return view('back_end.salones.disponibilidad', compact('calendar','data2'));
+        return view('back_end.salones.disponibilidad', compact('calendar', 'data2'));
     }
 
     public function anular(Request $request)
@@ -142,22 +143,23 @@ class Salones extends Controller
 
     }
 
-    public function publico(){
+    public function publico()
+    {
         $color = null;
 
         $events = [];
         $data = $reservas = DB::table('reservas')
-            ->where('estadoReserva','=','Activa')
-            ->join('salones','salones.idSalon', 'reservas.salones_idSalon')
+            ->where('estadoReserva', '=', 'Activa')
+            ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
             ->get();
 
         $data2 = $reservas = DB::table('salones')
-            ->where('estadoSalon','Activo')
+            ->where('estadoSalon', 'Activo')
             ->get();
 
         foreach ($data as $key => $value) {
             $events[] = Calendar::event(
-                $value->nombreReserva.' / Reservado por: '. $value->usuarioReserva,
+                $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
                 false,
                 new \DateTime($value->fecIniReserva),
                 new \DateTime($value->fecFinReserva),
@@ -169,6 +171,6 @@ class Salones extends Controller
         }
 
         $calendar = Calendar::addEvents($events);
-        return view('back_end.salones.publico', compact('calendar','data2'));
+        return view('back_end.salones.publico', compact('calendar', 'data2'));
     }
 }

@@ -26,7 +26,8 @@ class Vehiculos extends Controller
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Vehiculos'],
-                    ['vehiculos.grupoAccesoVehiculo','=',auth::user()->sublevel]
+                    ['fecIniReserva', '>=', NOW()],
+                    ['vehiculos.grupoAccesoVehiculo', '=', auth::user()->sublevel]
                 ])
                 ->join('vehiculos', 'vehiculos.idVehiculo', 'reservas.vehiculos_idVehiculo')
                 ->join('users', 'users.id', 'reservas.users_id')
@@ -60,7 +61,7 @@ class Vehiculos extends Controller
 
         foreach ($data as $key => $value) {
             $events[] = Calendar::event(
-                'Destino: '.$value->destinoReserva.' Reserva: '.$value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                'Destino: ' . $value->destinoReserva . ' Reserva: ' . $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
                 false,
                 new \DateTime($value->fecIniReserva),
                 new \DateTime($value->fecFinReserva),
@@ -93,7 +94,7 @@ class Vehiculos extends Controller
 
         foreach ($data as $key => $value) {
             $events[] = Calendar::event(
-                'Destino: '.$value->destinoReserva.' Reserva: '.$value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                'Destino: ' . $value->destinoReserva . ' Reserva: ' . $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
                 false,
                 new \DateTime($value->fecIniReserva),
                 new \DateTime($value->fecFinReserva),

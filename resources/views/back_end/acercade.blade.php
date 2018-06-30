@@ -14,6 +14,14 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-info"></i> General!</h4>
         <br>
+        Sistema V_0.2 - 03 Julio - Año 2018 <br><br>
+        <strong>Control de Cambios</strong> <br>
+        <ul>
+            <li>Validación de Reservas Únicas</li>
+            <li>Mejoras al Sistema de Gestión</li>
+        </ul>
+        <hr>
+        <br>
         Sistema V_0.1 - 25 Junio - Año 2018 <br><br>
         Administrador Titular: Daniel Gutiérrez F. - dgutierrez@gorebiobio.cl <br>
         Administrador Suplente: Leonardo O. Bastias - lbastias@gorebiobio.cl <br><br>

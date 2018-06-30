@@ -34,9 +34,9 @@
          id="onepagepro-mobile-header">
         <div class="onepagepro-mobile-header-container onepagepro-container">
             <div class="onepagepro-logo  onepagepro-item-pdlr">
-                <div class="onepagepro-logo-inner">
-                    <a href="index.html"><img src="http://astritbublaku.com/demos/onepagepro/landing-logo.png" alt=""
-                                              width="245" height="39"/></a>
+                <div >
+                    <center><a href="index.html"><img src="/img/logo.fw.png" alt=""
+                                                      width="100" /></a></center>
                 </div>
             </div>
         </div>
