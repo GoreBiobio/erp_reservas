@@ -26,7 +26,7 @@ class Vehiculos extends Controller
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Vehiculos'],
-                    ['fecIniReserva', '>=', NOW()],
+                    ['fecFinReserva', '>=', NOW()],
                     ['vehiculos.grupoAccesoVehiculo', '=', auth::user()->sublevel]
                 ])
                 ->join('vehiculos', 'vehiculos.idVehiculo', 'reservas.vehiculos_idVehiculo')

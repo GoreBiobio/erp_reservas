@@ -10,6 +10,16 @@
 @endsection
 @section('main-content')
 
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @elseif(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="container">
         <div class="row">
             <div class="col-md-3  no-print">
@@ -22,7 +32,8 @@
                         <div id="external-events">
                             @foreach($data2 as $data2)
                                 <button type="button" class="btn btn-block btn-flat"
-                                        style="color: #ffffff; background-color: {{ $data2->colorSalon }}"><strong>{{ $data2 -> nombreSalon }}</strong>
+                                        style="color: #ffffff; background-color: {{ $data2->colorSalon }}">
+                                    <strong>{{ $data2 -> nombreSalon }}</strong>
                                 </button>
                             @endforeach
                         </div>

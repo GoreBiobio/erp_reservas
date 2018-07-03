@@ -95,22 +95,34 @@ class Reservas extends Controller
             //SOLO SI ES VEHICULO
             $destino_reserva = null;
 
-        } elseif ($tipo_reserva == 'Hardwares') {
-            $idSalon = null;
-            $idVehiculo = null;
-            $idHardware = $request->input('idhardware');
-
-            //SOLO SI ES VEHICULO
-            $destino_reserva = null;
-
-        } elseif ($tipo_reserva == 'Vehiculos') {
+        }  elseif ($tipo_reserva == 'Vehiculos') {
             $idSalon = null;
             $idVehiculo = $request->input('idvehiculo');
             $idHardware = null;
 
             //SOLO SI ES VEHICULO
             $destino_reserva = $request->input('destino');
+            $conductor = $request->input('conductor');
+
         }
+
+        $t = $request->input('fini') . ' ' . $request->input('hini');
+        $t2 = $request->input('ffin') . ' ' . $request->input('hfin');
+
+        $fechaRes = DB::table('reservas')
+            ->whereRaw('vehiculos_idVehiculo = ? 
+                AND estadoReserva = ?
+                AND( ? BETWEEN fecIniReserva AND fecFinReserva 
+                OR ? BETWEEN fecIniReserva AND fecFinReserva
+                OR fecIniReserva >= ? AND fecIniReserva <= ?)',
+                [$idVehiculo, 'Activa', $t, $t2, $t, $t2])
+            ->get();
+
+        $contador = count($fechaRes);
+
+        if ($contador == 1) {
+            return redirect('/Vehiculos/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el vehículo en la fecha y horario!');
+        } elseif ($contador == 0) {
 
         DB::table('reservas')->insert([
             'creaReserva' => new datetime(),
@@ -120,6 +132,7 @@ class Reservas extends Controller
             'tipoReserva' => $tipo_reserva,
             'usuarioReserva' => $request->input('usuarioreq'),
             'destinoReserva' => $destino_reserva,
+            'conductor' => $conductor,
             'obsReserva' => $request->input('detallereserva'),
             'estadoReserva' => $request->input('estadoreserva'),
             'evalReserva' => null,
@@ -128,8 +141,10 @@ class Reservas extends Controller
             'hardwares_idHardware' => $idHardware,
             'users_id' => Auth::user()->id
         ]);
-
-        return redirect('/Vehiculos/Disponibilidad');
+            return redirect('/Vehiculos/Disponibilidad')->with('status', '¡Se ha reservado con éxito el vehículo!');
+        } else {
+            return redirect('/Vehiculos/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el Vehículo!');
+        }
 
     }
 

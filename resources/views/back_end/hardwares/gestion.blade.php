@@ -150,10 +150,14 @@
                             </td>
                             <td>
                                 <center>
-                                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                                            data-target="#ModalAnular"><i
-                                            class="fa fa-calendar-minus-o"></i> ANULAR RESERVA
-                                    </button>
+                                    <form action="/Reservas/AnularReservaHardware" method="POST">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="idReserva"
+                                               value="{{ $lista_reservas -> idReserva }}">
+                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
+                                            ANULAR RESERVA
+                                        </button>
+                                    </form>
                                 </center>
                             </td>
                         </tr>
@@ -163,35 +167,6 @@
             </div>
         </div>
         <!-- /.box-body -->
-    </div>
-
-    <div id="ModalAnular" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Solicitar Anulación de Reserva</h4>
-                </div>
-                <div class="modal-body">
-                    <form action="/Reservas/AnularReservaHardware" method="POST">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="idReserva"
-                               value="{{ $lista_reservas -> idReserva }}">
-                        <center>
-                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
-                                SI, ANULAR RESERVA
-                            </button>
-                        </center>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 
 @endsection

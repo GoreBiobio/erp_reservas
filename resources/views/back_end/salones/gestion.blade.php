@@ -105,7 +105,8 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Fecha Reserva</th>
+                        <th>Fecha Inicio Reserva</th>
+                        <th>Fecha Fin Reserva</th>
                         <th>Salón</th>
                         <th>Funcionario Reserva</th>
                         <th>Observaciones Reserva</th>
@@ -118,7 +119,8 @@
                     @foreach($lista_reservas as $lista_reservas)
                         <tr>
                             <td><center>{{ $lista_reservas -> idReserva }}</center></td>
-                            <td>{{ $lista_reservas -> fecIniReserva  }} al {{ $lista_reservas -> fecFinReserva }}</td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecIniReserva))  }}</td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecFinReserva)) }}</td>
                             <td>
                                 <button type="button" class="btn btn-block btn-xs"
                                         style="color: #ffffff; background-color: {{ $lista_reservas->colorSalon }}">
@@ -144,7 +146,7 @@
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="idReserva"
                                                value="{{ $lista_reservas -> idReserva }}">
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-close"></i>
+                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
                                             ANULAR RESERVA
                                         </button>
                                     </form>

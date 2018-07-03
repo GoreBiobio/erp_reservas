@@ -27,7 +27,7 @@ class Hardwares extends Controller
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Hardwares'],
-                    ['fecIniReserva', '>=', NOW()],
+                    ['fecFinReserva', '>=', NOW()],
                     ['hardwares.grupoAccesoHardware','=',auth::user()->sublevel]
                 ])
                 ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')

@@ -80,6 +80,11 @@
                             <label for="nombres">Destino de la Reserva</label>
                             <input class="form-control" type="text" name="destino" placeholder="Comuna" required>
                         </div>
+                        <div class="col-md-3">
+                            <label for="nombres">Conductor</label>
+                            <input class="form-control" type="text" name="conductor" placeholder="Nombre Conductor"
+                                   required>
+                        </div>
                         <div class="col-md-6">
                             <label for="telefono">Detalle de la Reserva:</label>
                             <textarea class="form-control" name="detallereserva" rows="3"
@@ -110,10 +115,12 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Fecha Reserva</th>
+                        <th>Fecha Inicio Reserva</th>
+                        <th>Fecha Fin Reserva</th>
                         <th>Vehículo</th>
                         <th>Funcionario Reserva</th>
                         <th>Destino</th>
+                        <th>Conductor</th>
                         <th>Observaciones Reserva</th>
                         <th>Estado</th>
                         <th>Reservado Por</th>
@@ -123,8 +130,11 @@
                     <tbody>
                     @foreach($lista_reservas as $lista_reservas)
                         <tr>
-                            <td><center>{{ $lista_reservas -> idReserva }}</center></td>
-                            <td>{{ $lista_reservas -> fecIniReserva  }} al {{ $lista_reservas -> fecFinReserva }}</td>
+                            <td>
+                                <center>{{ $lista_reservas -> idReserva }}</center>
+                            </td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecIniReserva))  }}</td>
+                            <td>{{ date("d/M/Y H:i:s",strtotime($lista_reservas -> fecFinReserva)) }}</td>
                             <td>
                                 <button type="button" class="btn btn-block btn-xs"
                                         style="color: #ffffff; background-color: {{ $lista_reservas->colorVehiculo }}">
@@ -135,7 +145,12 @@
                             <td>
                                 <center>{{ $lista_reservas -> usuarioReserva }}</center>
                             </td>
-                            <td><center>{{ $lista_reservas -> destinoReserva }}</center></td>
+                            <td>
+                                <center>{{ $lista_reservas -> destinoReserva }}</center>
+                            </td>
+                            <td>
+                                <center>{{ $lista_reservas -> conductor }}</center>
+                            </td>
                             <td>{{ $lista_reservas -> obsReserva }}</td>
                             <td>
                                 <center>
@@ -145,14 +160,16 @@
                                     </button>
                                 </center>
                             </td>
-                            <td><center>{{ $lista_reservas -> name }}</center></td>
+                            <td>
+                                <center>{{ $lista_reservas -> name }}</center>
+                            </td>
                             <td>
                                 <center>
                                     <form action="/Reservas/AnularReservaVehiculo" method="POST">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="idReserva"
                                                value="{{ $lista_reservas -> idReserva }}">
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-close"></i>
+                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
                                             ANULAR RESERVA
                                         </button>
                                     </form>

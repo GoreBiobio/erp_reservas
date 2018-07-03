@@ -29,7 +29,7 @@ class Salones extends Controller
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Salones'],
-                    ['fecIniReserva', '>=', NOW()],
+                    ['fecFinReserva', '>=', NOW()],
                     ['salones.grupoAccesoSalon', '=', auth::user()->sublevel]
                 ])
                 ->get();
@@ -77,24 +77,44 @@ class Salones extends Controller
             $destino_reserva = $request->input('XXX');
         }
 
-        DB::table('reservas')->insert([
-            'creaReserva' => new datetime(),
-            'nombreReserva' => $request->input('nombrereserva'),
-            'fecIniReserva' => $request->input('fini') . ' ' . $request->input('hini'),
-            'fecFinReserva' => $request->input('ffin') . ' ' . $request->input('hfin'),
-            'tipoReserva' => $tipo_reserva,
-            'usuarioReserva' => $request->input('usuarioreq'),
-            'destinoReserva' => $destino_reserva,
-            'obsReserva' => $request->input('detallereserva'),
-            'estadoReserva' => $request->input('estadoreserva'),
-            'evalReserva' => null,
-            'salones_idSalon' => $idSalon,
-            'vehiculos_idVehiculo' => $idVehiculo,
-            'hardwares_idHardware' => $idHardware,
-            'users_id' => Auth::user()->id
-        ]);
+        $t = $request->input('fini') . ' ' . $request->input('hini');
+        $t2 = $request->input('ffin') . ' ' . $request->input('hfin');
 
-        return redirect('/Salones/Disponibilidad');
+        $fechaRes = DB::table('reservas')
+            ->whereRaw('salones_idSalon = ? 
+                AND estadoReserva = ?
+                AND( ? BETWEEN fecIniReserva AND fecFinReserva 
+                OR ? BETWEEN fecIniReserva AND fecFinReserva
+                OR fecIniReserva >= ? AND fecIniReserva <= ?)',
+                [$idSalon, 'Activa', $t, $t2, $t, $t2])
+            ->get();
+
+        $contador = count($fechaRes);
+
+        if ($contador == 1) {
+            return redirect('/Salones/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el Salón en la fecha y horario!');
+        } elseif ($contador == 0) {
+
+            DB::table('reservas')->insert([
+                'creaReserva' => new datetime(),
+                'nombreReserva' => $request->input('nombrereserva'),
+                'fecIniReserva' => $request->input('fini') . ' ' . $request->input('hini'),
+                'fecFinReserva' => $request->input('ffin') . ' ' . $request->input('hfin'),
+                'tipoReserva' => $tipo_reserva,
+                'usuarioReserva' => $request->input('usuarioreq'),
+                'destinoReserva' => $destino_reserva,
+                'obsReserva' => $request->input('detallereserva'),
+                'estadoReserva' => $request->input('estadoreserva'),
+                'evalReserva' => null,
+                'salones_idSalon' => $idSalon,
+                'vehiculos_idVehiculo' => $idVehiculo,
+                'hardwares_idHardware' => $idHardware,
+                'users_id' => Auth::user()->id
+            ]);
+            return redirect('/Salones/Disponibilidad')->with('status', '¡Se ha reservado con éxito el Salón!');
+        } else {
+            return redirect('/Salones/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el Salón en la fecha y horario!');
+        }
 
     }
 
