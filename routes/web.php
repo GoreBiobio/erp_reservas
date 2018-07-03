@@ -8,7 +8,7 @@ Route::get('/Publico/Vehiculos', 'Vehiculos@publico');
 Route::get('/Publico/Hardwares', 'Hardwares@publico');
 Route::get('/Publico/Salones', 'Salones@publico');
 
-Route::get('/Publico/Publico','Reservas@publico');
+Route::post('/Publico/Publico','Reservas@publico');
 
 Route::group(['middleware' => 'auth'], function () {
 

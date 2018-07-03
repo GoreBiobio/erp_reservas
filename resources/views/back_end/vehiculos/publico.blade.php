@@ -36,9 +36,15 @@
                         <!-- the events -->
                         <div id="external-events">
                             @foreach($vehi_lista as $vehi_lista)
-                                <button type="button" class="btn btn-block btn-flat"
-                                        style="color: #ffffff; background-color: {{ $vehi_lista->colorVehiculo }}"><strong>{{ $vehi_lista -> tipoVehiculo }} {{$vehi_lista->patenteVehiculo}}</strong>
-                                </button>
+                                <form action="/Publico/Publico" method="POST">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="tipo" value="Vehiculo">
+                                    <input type="hidden" name="idItem" value="{{ $vehi_lista -> idVehiculo }}">
+                                    <button type="submit" class="btn btn-block btn-flat"
+                                            style="color: #ffffff; background-color: {{ $vehi_lista->colorVehiculo }}">
+                                        <strong>{{ $vehi_lista -> tipoVehiculo }} {{$vehi_lista->patenteVehiculo}}</strong>
+                                    </button>
+                                </form><br>
                             @endforeach
                         </div>
                     </div>

@@ -35,11 +35,16 @@
                         <!-- the events -->
                         <div id="external-events">
                             @foreach($hard_lista as $hard_lista)
-                                <button type="button" class="btn btn-block btn-flat"
-                                        style="color: #ffffff; background-color: {{ $hard_lista->colorHardware }}">
-                                    <strong>{{ $hard_lista -> nombreHardware }}
-                                        - {{ $hard_lista -> marcaHardware }} {{ $hard_lista -> modeloHardware }}</strong>
-                                </button>
+                                <form action="/Publico/Publico" method="POST">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="tipo" value="Hardware">
+                                    <input type="hidden" name="idItem" value="{{ $hard_lista -> idHardware }}">
+                                    <button type="submit" class="btn btn-block btn-flat"
+                                            style="color: #ffffff; background-color: {{ $hard_lista->colorHardware }}">
+                                        <strong>{{ $hard_lista -> nombreHardware }}
+                                            - {{ $hard_lista -> marcaHardware }} {{ $hard_lista -> modeloHardware }}</strong>
+                                    </button>
+                                </form><br>
                             @endforeach
                         </div>
                     </div>

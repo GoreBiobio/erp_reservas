@@ -95,7 +95,7 @@ class Reservas extends Controller
             //SOLO SI ES VEHICULO
             $destino_reserva = null;
 
-        }  elseif ($tipo_reserva == 'Vehiculos') {
+        } elseif ($tipo_reserva == 'Vehiculos') {
             $idSalon = null;
             $idVehiculo = $request->input('idvehiculo');
             $idHardware = null;
@@ -124,23 +124,23 @@ class Reservas extends Controller
             return redirect('/Vehiculos/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el vehículo en la fecha y horario!');
         } elseif ($contador == 0) {
 
-        DB::table('reservas')->insert([
-            'creaReserva' => new datetime(),
-            'nombreReserva' => $request->input('nombrereserva'),
-            'fecIniReserva' => $request->input('fini') . ' ' . $request->input('hini'),
-            'fecFinReserva' => $request->input('ffin') . ' ' . $request->input('hfin'),
-            'tipoReserva' => $tipo_reserva,
-            'usuarioReserva' => $request->input('usuarioreq'),
-            'destinoReserva' => $destino_reserva,
-            'conductor' => $conductor,
-            'obsReserva' => $request->input('detallereserva'),
-            'estadoReserva' => $request->input('estadoreserva'),
-            'evalReserva' => null,
-            'salones_idSalon' => $idSalon,
-            'vehiculos_idVehiculo' => $idVehiculo,
-            'hardwares_idHardware' => $idHardware,
-            'users_id' => Auth::user()->id
-        ]);
+            DB::table('reservas')->insert([
+                'creaReserva' => new datetime(),
+                'nombreReserva' => $request->input('nombrereserva'),
+                'fecIniReserva' => $request->input('fini') . ' ' . $request->input('hini'),
+                'fecFinReserva' => $request->input('ffin') . ' ' . $request->input('hfin'),
+                'tipoReserva' => $tipo_reserva,
+                'usuarioReserva' => $request->input('usuarioreq'),
+                'destinoReserva' => $destino_reserva,
+                'conductor' => $conductor,
+                'obsReserva' => $request->input('detallereserva'),
+                'estadoReserva' => $request->input('estadoreserva'),
+                'evalReserva' => null,
+                'salones_idSalon' => $idSalon,
+                'vehiculos_idVehiculo' => $idVehiculo,
+                'hardwares_idHardware' => $idHardware,
+                'users_id' => Auth::user()->id
+            ]);
             return redirect('/Vehiculos/Disponibilidad')->with('status', '¡Se ha reservado con éxito el vehículo!');
         } else {
             return redirect('/Vehiculos/Disponibilidad')->with('error', '¡Error, ya existe una reserva para el Vehículo!');
@@ -161,7 +161,117 @@ class Reservas extends Controller
 
     }
 
-    public function publico()
+    public function publico(Request $request)
     {
+
+        $tipo = $request->input('tipo');
+        $id = $request->input('idItem');
+
+        if ($tipo == 'Hardware') {
+            $color = null;
+            $events = [];
+            $data = $reservas = DB::table('reservas')
+                ->where([
+                    ['estadoReserva', '=', 'Activa'],
+                    ['idHardware', '=', $id]
+                ])
+                ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')
+                ->get();
+
+            $dato = $reservas = DB::table('reservas')
+                ->where([
+                    ['idHardware', '=', $id]
+                ])
+                ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')
+                ->first();
+
+            foreach ($data as $key => $value) {
+                $events[] = Calendar::event(
+                    'Destino: ' . $value->destinoReserva . ' Reserva: ' . $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                    false,
+                    new \DateTime($value->fecIniReserva),
+                    new \DateTime($value->fecFinReserva),
+                    null,
+                    [
+                        'color' => $value->colorHardware,
+                    ]
+                );
+            }
+
+            $calendar = Calendar::addEvents($events);
+            return view('back_end.calendario', compact('calendar', 'tipo', 'dato'));
+        }
+
+        if ($tipo == 'Salon') {
+            $color = null;
+            $events = [];
+            $data = $reservas = DB::table('reservas')
+                ->where([
+                    ['estadoReserva', '=', 'Activa'],
+                    ['idSalon', '=', $id]
+                ])
+                ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
+                ->get();
+
+            $dato = $reservas = DB::table('reservas')
+                ->where([
+                    ['idSalon', '=', $id]
+                ])
+                ->join('salones', 'salones.idSalon', 'reservas.salones_idSalon')
+                ->first();
+
+            foreach ($data as $key => $value) {
+                $events[] = Calendar::event(
+                    'Destino: ' . $value->destinoReserva . ' Reserva: ' . $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                    false,
+                    new \DateTime($value->fecIniReserva),
+                    new \DateTime($value->fecFinReserva),
+                    null,
+                    [
+                        'color' => $value->colorSalon,
+                    ]
+                );
+            }
+
+            $calendar = Calendar::addEvents($events);
+            return view('back_end.calendario', compact('calendar', 'tipo', 'dato'));
+        }
+
+        if ($tipo == 'Vehiculo') {
+            $color = null;
+            $events = [];
+            $data = $reservas = DB::table('reservas')
+                ->where([
+                    ['estadoReserva', '=', 'Activa'],
+                    ['idVehiculo', '=', $id]
+                ])
+                ->join('vehiculos', 'vehiculos.idVehiculo', 'reservas.vehiculos_idVehiculo')
+                ->get();
+
+            $dato = $reservas = DB::table('reservas')
+                ->where([
+                    ['idVehiculo', '=', $id]
+                ])
+                ->join('vehiculos', 'vehiculos.idVehiculo', 'reservas.vehiculos_idVehiculo')
+                ->first();
+
+            foreach ($data as $key => $value) {
+                $events[] = Calendar::event(
+                    'Destino: ' . $value->destinoReserva . ' Reserva: ' . $value->nombreReserva . ' / Reservado por: ' . $value->usuarioReserva,
+                    false,
+                    new \DateTime($value->fecIniReserva),
+                    new \DateTime($value->fecFinReserva),
+                    null,
+                    [
+                        'color' => $value->colorVehiculo,
+                    ]
+                );
+            }
+
+            $calendar = Calendar::addEvents($events);
+            return view('back_end.calendario', compact('calendar', 'tipo', 'dato'));
+        }
+
     }
+
 }
