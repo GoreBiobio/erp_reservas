@@ -57,7 +57,9 @@
                     @endif
                 </ul>
             </li>
-
+            <li class="header">INFORMATICA</li>
+            <li><a href="/"><i class='fa fa-users'></i> <span>Funcionarios</span></a></li>
+            <li><a href="/"><i class='fa fa-file'></i> <span>Documentos</span></a></li>
             <li class="header">SISTEMA</li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-gears'></i> <span>Configuraciones</span> <i

@@ -23,7 +23,6 @@
             src='https://cdn.goodlayers.com/onepagepro/corporate/wp-content/themes/onepagepro/js/html5.js?ver=4.9.6'></script>
     <![endif]-->
 
-
 </head>
 
 
@@ -73,29 +72,34 @@
                             <div
                                 class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first gdlr-core-hide-in-tablet-mobile">
                                 <div class="gdlr-core-pbf-column-content-margin gdlr-core-js "
-                                     style="padding: 300px 0px 0px 0px;">
+                                     style="padding: 200px 0px 0px 0px;">
                                     <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js "></div>
                                 </div>
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-20 gdlr-core-column-first">
-                                <a href="Publico/Salones"><img src="img/calendar.png" alt=""></a>
-                                <center><h2>Salones</h2></center>
+                                <a href="Publico/Salones"><img src="img/calendar.fw.png" alt=""></a>
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-20">
-                                <a href="Publico/Vehiculos"><img src="img/auto.png" alt=""></a>
-                                <center><h2>Vehículos</h2></center>
+                                <a href="Publico/Vehiculos"><img src="img/vehiculos.fw.png" alt=""></a>
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-20">
-                                <a href="Publico/Hardwares"><img src="img/pc.png" alt=""></a>
-                                <center><h2>Equipamiento Informático</h2></center>
+                                <a href="Publico/Hardwares"><img src="img/equipos.fw.png" alt=""></a>
+                            </div>
+
+                            <div class="gdlr-core-pbf-column gdlr-core-column-20">
+                                <a href="Publico/Funcionarios"><img src="img/directorio.fw.png" alt=""></a>
+                            </div>
+
+                            <div class="gdlr-core-pbf-column gdlr-core-column-20">
+                                <a href="Publico/Documentos"><img src="img/biblioteca.fw.png" alt=""></a>
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
                                 <div class="gdlr-core-pbf-column-content-margin gdlr-core-js "
-                                     style="padding: 40px 0px 0px 0px;">
+                                     style="padding: 20px 0px 0px 0px;">
                                     <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
                                         <div class="gdlr-core-pbf-element">
                                             <div
@@ -107,20 +111,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <center><p>&copy SISTEMA DE RESERVAS - GOBIERNO REGIONAL DEL BIOBÍO V.0.4 2018</p></center>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
-            <div class="onepagepro-copyright-wrapper">
-                <div class="onepagepro-copyright-container onepagepro-container">
-                    <div class="onepagepro-copyright-text onepagepro-item-pdlr">&copy 2018 - SISTEMA DE RESERVAS / GORE BIOBÍO
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </div>
 </body>

@@ -7,6 +7,8 @@ Route::get('/', function () {
 Route::get('/Publico/Vehiculos', 'Vehiculos@publico');
 Route::get('/Publico/Hardwares', 'Hardwares@publico');
 Route::get('/Publico/Salones', 'Salones@publico');
+Route::get('/Publico/Funcionarios', 'Funcionarios@publico');
+Route::get('/Publico/Documentos', 'Documentos@publico');
 
 Route::post('/Publico/Publico','Reservas@publico');
 
