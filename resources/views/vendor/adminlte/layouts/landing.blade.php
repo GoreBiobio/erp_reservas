@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-20">
-                                <a href="https://goo.gl/forms/d2rMgrZ9EJSXPmsE3"><p>Inventario</p></a>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdAsqB9Q5nAU2_vEUzldqofGYhiklUA7TymeqEho6uGbEh1rg/viewform"><p>Inventario</p></a>
                             </div>
 
                             <div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
