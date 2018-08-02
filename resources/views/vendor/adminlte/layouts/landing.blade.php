@@ -97,6 +97,10 @@
                                 <a href="Publico/Documentos"><img src="img/biblioteca.fw.png" alt=""></a>
                             </div>
 
+                            <div class="gdlr-core-pbf-column gdlr-core-column-20">
+                                <a href="https://goo.gl/forms/d2rMgrZ9EJSXPmsE3"><p>Inventario</p></a>
+                            </div>
+
                             <div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
                                 <div class="gdlr-core-pbf-column-content-margin gdlr-core-js "
                                      style="padding: 20px 0px 0px 0px;">
