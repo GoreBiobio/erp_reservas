@@ -28,7 +28,7 @@ class Hardwares extends Controller
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Hardwares'],
                     ['fecFinReserva', '>=', NOW()],
-                    ['hardwares.grupoAccesoHardware','=',auth::user()->sublevel]
+                    ['hardwares.grupoAccesoHardware', '=', auth::user()->sublevel]
                 ])
                 ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')
                 ->join('users', 'users.id', 'reservas.users_id')
@@ -38,7 +38,7 @@ class Hardwares extends Controller
                 'hardwares' => $hardwares,
                 'lista_reservas' => $lista_reservas_activas
             ]);
-        }else{
+        } else {
 
             return view('back_end.accesonoautorizado');
         }
@@ -109,6 +109,19 @@ class Hardwares extends Controller
         $calendar = Calendar::addEvents($events);
         return view('back_end.hardwares.publico', compact('calendar', 'hard_lista'));
 
+    }
+
+    public function print(Request $request)
+    {
+        $idReserva = $request->input('idReserva');
+
+        $reserva = DB::table('reservas')
+            ->join('users', 'reservas.users_id','users.id')
+            ->join('hardwares', 'reservas.hardwares_idHardware', 'hardwares.idHardware')
+            ->where('idReserva', $idReserva)
+            ->first();
+
+        return view('back_end.hardwares.print', compact('reserva'));
     }
 
 }

@@ -154,9 +154,18 @@
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="idReserva"
                                                value="{{ $lista_reservas -> idReserva }}">
-                                        <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-calendar-minus-o"></i>
+                                        <button type="submit" class="btn btn-danger btn-xs"><i
+                                                class="fa fa-calendar-minus-o"></i>
                                             ANULAR RESERVA
                                         </button>
+                                    </form>
+                                </center>
+                                <br>
+                                <center>
+                                    <form action="/Hardwares/Print" method="GET">
+                                        <input type="hidden" name="idReserva" value="{{ $lista_reservas -> idReserva }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-primary btn-xs" value="Voucher"/>
                                     </form>
                                 </center>
                             </td>
