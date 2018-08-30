@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
 // RUTAS DE HARDWARE
     Route::get('/Hardwares/Gestion', 'Hardwares@gestion');
     Route::get('/Hardwares/Disponibilidad', 'Hardwares@disponibilidad');
-    Route::get('/Hardwares/Print', 'Hardwares@print');
+    Route::get('/Hardwares/Terminar', 'Hardwares@terminar');
 
 // RUTAS DE VEHICULOS
     Route::get('/Vehiculos/Gestion', 'Vehiculos@gestion');

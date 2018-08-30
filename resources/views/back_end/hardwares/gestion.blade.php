@@ -162,10 +162,10 @@
                                 </center>
                                 <br>
                                 <center>
-                                    <form action="/Hardwares/Print" method="GET">
+                                    <form action="/Hardwares/Terminar" method="GET">
                                         <input type="hidden" name="idReserva" value="{{ $lista_reservas -> idReserva }}">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-primary btn-xs" value="Voucher"/>
+                                        <input type="submit" class="btn btn-primary btn-xs" value="ENTREGADO POR USUARIO"/>
                                     </form>
                                 </center>
                             </td>

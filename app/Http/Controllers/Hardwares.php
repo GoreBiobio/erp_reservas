@@ -27,7 +27,7 @@ class Hardwares extends Controller
                 ->where([
                     ['estadoReserva', '=', 'Activa'],
                     ['tipoReserva', '=', 'Hardwares'],
-                    ['fecFinReserva', '>=', NOW()],
+                    ['evalReserva', '=', null],
                     ['hardwares.grupoAccesoHardware', '=', auth::user()->sublevel]
                 ])
                 ->join('hardwares', 'hardwares.idHardware', 'reservas.hardwares_idHardware')
@@ -116,12 +116,32 @@ class Hardwares extends Controller
         $idReserva = $request->input('idReserva');
 
         $reserva = DB::table('reservas')
-            ->join('users', 'reservas.users_id','users.id')
+            ->join('users', 'reservas.users_id', 'users.id')
             ->join('hardwares', 'reservas.hardwares_idHardware', 'hardwares.idHardware')
             ->where('idReserva', $idReserva)
             ->first();
 
         return view('back_end.hardwares.print', compact('reserva'));
+    }
+
+    public function terminar(Request $request)
+    {
+        $id = Auth::id();
+
+        DB::table('reservas')
+            ->where('idReserva', $request->input('idReserva'))
+            ->update(
+                ['evalReserva' => 'OK']
+            );
+
+        DB::table('reservas')
+            ->where('idReserva', $request->input('idReserva'))
+            ->update(
+                ['idrecep' => $id]
+            );
+
+        return $this->gestion();
+
     }
 
 }
