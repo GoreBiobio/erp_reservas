@@ -51,6 +51,8 @@
                                 </div>
                             </td>
                             <td>
+                                <center><a href="https://docs.google.com/forms/d/e/1FAIpQLSdAsqB9Q5nAU2_vEUzldqofGYhiklUA7TymeqEho6uGbEh1rg/viewform" target="_blank">Inventario</a></center>
+                                <br><br>
                                 <center><a
                                         class="gdlr-core-button  gdlr-core-button-gradient gdlr-core-button-no-border"
                                         href="/login"
