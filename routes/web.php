@@ -9,6 +9,7 @@ Route::get('/Publico/Hardwares', 'Hardwares@publico');
 Route::get('/Publico/Salones', 'Salones@publico');
 Route::get('/Publico/Funcionarios', 'Funcionarios@publico');
 Route::get('/Publico/Documentos', 'Documentos@publico');
+Route::get('/Publico/DGDP', 'Documentos@dgdp');
 
 Route::post('/Publico/Publico','Reservas@publico');
 

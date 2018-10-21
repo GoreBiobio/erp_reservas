@@ -18,4 +18,14 @@ class Documentos extends Controller
         return view('back_end.documentos.publico',compact('documentos'));
 
     }
+
+    public function dgdp(){
+
+        $documentos = DB::table('documentos')
+            ->join('catdocumentos','documentos.catDocumentos_idCatDocs','catdocumentos.idCatDocs')
+            ->where('documentos.estadoDocs', 3)
+            ->get();
+
+        return view('back_end.documentos.dgdp',compact('documentos'));
+    }
 }

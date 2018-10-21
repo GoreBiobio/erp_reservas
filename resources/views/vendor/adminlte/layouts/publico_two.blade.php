@@ -9,6 +9,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @include('adminlte::layouts.partials.htmlheader')
 @show
 
+
+
 <body class="skin-blue sidebar-mini">
 <br><br>
 <div id="app">
